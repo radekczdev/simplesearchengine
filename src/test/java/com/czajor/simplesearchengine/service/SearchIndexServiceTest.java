@@ -41,11 +41,11 @@ public class SearchIndexServiceTest {
         Optional<Document> wrappedDocument10L = Optional.of(document10L);
         Optional<Document> wrappedDocument50L = Optional.of(document50L);
 
-        String indexId = "fox";
+        String indexId = "brown";
         Index index = new Index(indexId);
         index.addDocument(0L);
-//        index.addDocument(10L);
-        index.addDocument(50L);
+        index.addDocument(10L);
+//        index.addDocument(50L);
         Optional<Index> wrappedIndex = Optional.of(index);
 
         when(indexRepository.findIndexById(indexId)).thenReturn(wrappedIndex);

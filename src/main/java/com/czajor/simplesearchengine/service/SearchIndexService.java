@@ -5,10 +5,7 @@ import com.czajor.simplesearchengine.domain.Index;
 import com.czajor.simplesearchengine.repository.DocumentRepository;
 import com.czajor.simplesearchengine.repository.IndexRepository;
 
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 import static java.util.stream.Collectors.toMap;
 
@@ -62,7 +59,8 @@ public class SearchIndexService {
                         )
         );
 
-        tfIdfCalculatedForDocumentsSorted = tfIdfCalculatedForDocuments.entrySet().stream().sorted(Map.Entry.comparingByValue())
+        tfIdfCalculatedForDocumentsSorted = tfIdfCalculatedForDocuments.entrySet().stream()
+                .sorted(Collections.reverseOrder(Map.Entry.comparingByValue()))
                 .collect(toMap(
                         Map.Entry::getKey,
                         Map.Entry::getValue,
