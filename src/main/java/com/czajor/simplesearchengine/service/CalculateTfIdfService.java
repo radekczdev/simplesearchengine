@@ -8,7 +8,7 @@ public class CalculateTfIdfService {
     }
 
     public double calculateIdf(int allDocuments, int docsContainingWord) {
-        return (double) Math.log10(allDocuments / docsContainingWord);
+        return Math.log10((double) allDocuments / (double) docsContainingWord);
     }
 
     public double calculateTfIdf(double tf, double idf) {

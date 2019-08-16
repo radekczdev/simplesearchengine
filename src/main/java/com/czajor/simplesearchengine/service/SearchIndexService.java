@@ -40,7 +40,7 @@ public class SearchIndexService {
                     }
                 );
 
-        wordOccurrenceInDocuments.entrySet().stream().map(
+        wordOccurrenceInDocuments.entrySet().stream().forEach(
                 doc ->
                         tfCalculatedForDocuments.put(
                                 doc.getKey(),
@@ -51,18 +51,18 @@ public class SearchIndexService {
                         )
         );
 
-        wordOccurrenceInDocuments.entrySet().stream().map(
+        wordOccurrenceInDocuments.entrySet().stream().forEach(
                 doc ->
                         tfIdfCalculatedForDocuments.put(
                                 doc.getKey(),
                                 tfIdfService.calculateTfIdf(
-                                        tfCalculatedForDocuments.get(doc),
+                                        tfCalculatedForDocuments.get(doc.getKey()),
                                         idf
                                 )
                         )
         );
 
-        tfIdfCalculatedForDocumentsSorted= tfIdfCalculatedForDocuments.entrySet().stream().sorted(Map.Entry.comparingByValue())
+        tfIdfCalculatedForDocumentsSorted = tfIdfCalculatedForDocuments.entrySet().stream().sorted(Map.Entry.comparingByValue())
                 .collect(toMap(
                         Map.Entry::getKey,
                         Map.Entry::getValue,
