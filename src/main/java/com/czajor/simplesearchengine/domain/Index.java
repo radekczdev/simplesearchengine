@@ -4,6 +4,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -11,7 +12,7 @@ import java.util.Set;
 @ToString
 public class Index {
     private final String value;
-    private Set<Document> documentsContaining;
+    private final Set<Long> documentsContaining = new HashSet<>();
 //    private Set<Document, TF>
 //    private IDF;
 
@@ -19,8 +20,12 @@ public class Index {
         this.value = value;
     }
 
-    public void addDocument(Document document) {
-        documentsContaining.add(document);
+    public void addDocument(Long id) {
+        if (!documentsContaining.contains(id)) {
+            documentsContaining.add(id);
+        } else {
+            throw new IllegalArgumentException("Index has this documents id");
+        }
     }
 
     @Override

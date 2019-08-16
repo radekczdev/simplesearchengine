@@ -1,11 +1,11 @@
-{
-  "1":{
-    "id": "the brown fox jumped over the brown dog"
+[
+  {
+    "body": "the brown fox jumped over the brown dog"
   },
-  "2":{
-    "id": "the lazy brown dog sat in the corner"
+  {
+    "body": "the lazy brown dog sat in the corner"
   },
-  "3":{
-    "id": "the red fox bit the lazy dog"
+  {
+    "body": "the red fox bit the lazy dog"
   }
-}
+]

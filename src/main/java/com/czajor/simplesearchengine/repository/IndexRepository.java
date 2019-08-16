@@ -1,4 +1,4 @@
-package com.czajor.gi.repository;
+package com.czajor.simplesearchengine.repository;
 
 import com.czajor.simplesearchengine.domain.Index;
 
@@ -6,9 +6,12 @@ import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
-public final class IndexRepository {
+public class IndexRepository {
     private volatile static IndexRepository instance;
-    private final Set<Index> indexSet = new HashSet<>();
+    private Set<Index> indexSet = new HashSet<>();
+
+    private IndexRepository() {
+    }
 
     public static IndexRepository getInstance() {
         if(instance == null) {
@@ -20,8 +23,13 @@ public final class IndexRepository {
         }
         return instance;
     }
+
     public void addIndex(final Index index) {
-        indexSet.add(index);
+        if (!indexSet.contains(index)) {
+            indexSet.add(index);
+        } else {
+            throw new IllegalArgumentException("Index already exists");
+        }
     }
 
     public Optional<Index> findIndexById(String id) {
@@ -30,6 +38,5 @@ public final class IndexRepository {
                 .findAny();
     }
 
-    private IndexRepository() {
-    }
+
 }

@@ -4,20 +4,28 @@ import com.czajor.simplesearchengine.domain.Document;
 import com.czajor.simplesearchengine.repository.DocumentRepository;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.ToString;
 
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
-import static com.czajor.simplesearchengine.SimpleSearchEngine.DOCUMENT_REPOSITORY;
+@Getter
+@EqualsAndHashCode
+@ToString
+public class InitiateDatabaseService {
+    private final Set<Document> documents = new HashSet<>();
 
-public class InitiateDatabase {
-    DocumentRepository repository = DocumentRepository.getInstance();
-
-    public void init(String path) {
+    public void addToDatabase(String path, DocumentRepository repository) {
         try {
-            repository.addDocuments(readFromFile(path));
+            documents.addAll(readFromFile(path));
+            repository.addDocuments(documents);
         } catch (Exception e) {
             System.out.println("Initializing database thrown error: " + e.getMessage());
         }
@@ -25,7 +33,8 @@ public class InitiateDatabase {
 
     public List<Document> readFromFile(String path) throws Exception {
         ObjectMapper mapper = new ObjectMapper();
-        File file = new File(path);
+        ClassLoader classLoader = ClassLoader.getSystemClassLoader();
+        File file = new File(classLoader.getResource(path).getFile());
         return mapper.readValue(file, new TypeReference<List<Document>>(){});
     }
 
