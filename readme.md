@@ -7,7 +7,7 @@ It was written in Java8. Build of the app is provided by Maven.
 
 **.json** input file should be placed in _resources_ folder. One json element contains **body** field with the String.
 
-###Use of application: 
+### Use of application: 
 - start the app using Maven
 - provide the json file name
 - provide index (word) to be searched
