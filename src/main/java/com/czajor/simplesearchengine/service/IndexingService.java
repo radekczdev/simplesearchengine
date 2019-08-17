@@ -4,24 +4,23 @@ import com.czajor.simplesearchengine.domain.Document;
 import com.czajor.simplesearchengine.domain.Index;
 import com.czajor.simplesearchengine.repository.DocumentRepository;
 import com.czajor.simplesearchengine.repository.IndexRepository;
+import lombok.EqualsAndHashCode;
 
-import java.util.Map;
+import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
-import java.util.stream.Collectors;
 
+@EqualsAndHashCode
 public class IndexingService {
 
     public void run(DocumentRepository documentRepository, IndexRepository indexRepository) {
         Set<Document> documents = documentRepository.getDocuments();
         documents.forEach(doc -> {
-                    Set<String> indexes = doc.getIndexMap().entrySet().stream()
-                            .map(Map.Entry::getKey)
-                            .collect(Collectors.toSet());
+                    Set<String> indexes = new HashSet<>(doc.getIndexMap().keySet());
                     for (String curIndex : indexes) {
-                        Optional<Index> indexOpt = indexRepository.findIndexById(curIndex);
-                        if (indexOpt.isPresent()) {
-                            Index index = indexOpt.get();
+                        Optional<Index> wrappedIndex = indexRepository.findIndexById(curIndex);
+                        if (wrappedIndex.isPresent()) {
+                            Index index = wrappedIndex.get();
                             index.addDocument(doc.getId());
                         } else {
                             Index index = new Index(curIndex);

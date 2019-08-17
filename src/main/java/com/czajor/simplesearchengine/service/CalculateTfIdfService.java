@@ -1,7 +1,8 @@
 package com.czajor.simplesearchengine.service;
 
-import java.math.BigDecimal;
+import lombok.EqualsAndHashCode;
 
+@EqualsAndHashCode
 public class CalculateTfIdfService {
     public double calculateTf(int wordOccurance, int allWords) {
         return (double) wordOccurance / (double) allWords;
@@ -12,6 +13,6 @@ public class CalculateTfIdfService {
     }
 
     public double calculateTfIdf(double tf, double idf) {
-        return tf*idf;
+        return tf * idf;
     }
 }
