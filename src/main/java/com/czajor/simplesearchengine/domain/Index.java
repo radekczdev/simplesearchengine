@@ -1,20 +1,16 @@
 package com.czajor.simplesearchengine.domain;
 
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 @Getter
 @ToString
 public class Index {
     private final String value;
     private final Set<Long> documentsContaining = new HashSet<>();
-//    private Set<Document, TF>
-//    private IDF;
+    private Map<Long, Double> tfIdfMap = new HashMap<>();
 
     public Index(String value) {
         this.value = value;

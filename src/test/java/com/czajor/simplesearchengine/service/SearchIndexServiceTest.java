@@ -4,26 +4,34 @@ import com.czajor.simplesearchengine.domain.Document;
 import com.czajor.simplesearchengine.domain.Index;
 import com.czajor.simplesearchengine.repository.DocumentRepository;
 import com.czajor.simplesearchengine.repository.IndexRepository;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class SearchIndexServiceTest {
-    private SearchIndexService service = new SearchIndexService();
+    private SearchIndexService service;
     @Mock
     IndexRepository indexRepository;
 
     @Mock
     DocumentRepository documentRepository;
+
+    @Before
+    public void setUp() throws Exception {
+        service = new SearchIndexService(indexRepository, documentRepository);
+    }
 
     @Test
     public void shouldFindTwoDocuments() {
@@ -51,8 +59,11 @@ public class SearchIndexServiceTest {
         when(documentRepository.findDocumentById(50L)).thenReturn(wrappedDocument50L);
 
         // When
-        int amountOfDocsFound = service.sortByTfIdf(indexId, indexRepository, documentRepository).size();
-        service.print(indexId);
+        Map<Long, Double> tfIdfMap = service.sortByTfIdf(indexId);
+        index.getTfIdfMap().putAll(tfIdfMap);
+
+        int amountOfDocsFound = index.getTfIdfMap().size();
+        PrintToConsoleService.searchResult(index);
 
         // Then
         assertSame(2, amountOfDocsFound);
@@ -78,8 +89,11 @@ public class SearchIndexServiceTest {
         when(documentRepository.findDocumentById(10L)).thenReturn(wrappedDocument10L);
 
         // When
-        int amountOfDocsFound = service.sortByTfIdf(indexId, indexRepository, documentRepository).size();
-        service.print(indexId);
+        Map<Long, Double> tfIdfMap = service.sortByTfIdf(indexId);
+        index.getTfIdfMap().putAll(tfIdfMap);
+
+        int amountOfDocsFound = index.getTfIdfMap().size();
+        PrintToConsoleService.searchResult(index);
 
         // Then
         assertEquals(1, amountOfDocsFound);
