@@ -20,7 +20,7 @@ public class Index {
         if (!documentsContaining.contains(id)) {
             documentsContaining.add(id);
         } else {
-            throw new IllegalArgumentException("Index has this documents id");
+            throw new IllegalArgumentException("Index already contains this document id");
         }
     }
 

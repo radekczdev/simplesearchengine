@@ -9,10 +9,7 @@ import lombok.Getter;
 import lombok.ToString;
 
 import java.io.File;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.HashSet;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
@@ -31,7 +28,7 @@ public class InitiateDatabaseService {
         }
     }
 
-    public List<Document> readFromFile(String path) throws Exception {
+    private List<Document> readFromFile(String path) throws Exception {
         ObjectMapper mapper = new ObjectMapper();
         ClassLoader classLoader = ClassLoader.getSystemClassLoader();
         File file = new File(classLoader.getResource(path).getFile());
