@@ -25,7 +25,7 @@ public class Runner {
 
     }
 
-    public void run() {
+    public void run() throws Exception {
         PrintToConsoleService.printWelcome();
         Scanner in = new Scanner(System.in);
         String path = in.nextLine();

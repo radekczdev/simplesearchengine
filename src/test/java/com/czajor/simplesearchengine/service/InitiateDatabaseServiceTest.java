@@ -17,7 +17,7 @@ public class InitiateDatabaseServiceTest {
     private String filePath = "documents_lines.json";
 
     @Test
-    public void shouldReadThreeObjects() {
+    public void shouldReadThreeObjects() throws Exception{
         InitiateDatabaseService initiateDatabaseService = new InitiateDatabaseService();
         initiateDatabaseService.addToDatabase(filePath, documentRepository);
         int sizeOfDatabase = initiateDatabaseService.getDocuments().size();

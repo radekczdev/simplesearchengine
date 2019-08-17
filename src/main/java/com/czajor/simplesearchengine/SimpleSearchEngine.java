@@ -9,6 +9,10 @@ public class SimpleSearchEngine {
 
     public static void main(String[] args) {
         Runner runner = new Runner(indexRepository, documentRepository);
-        runner.run();
+        try {
+            runner.run();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 }
